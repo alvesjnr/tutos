@@ -17,7 +17,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include <kernelio.h>
+#include <multiboot.h>
 
-void kmain(){
-	printk("Your kernel has booted.\n");
+void kmain(struct multiboot_info *mbi){
+	
+	printk("tutOS - Tutorial Operating System.\n\n");
+	printk("mem lower: %uKB\n", (unsigned) mbi->mem_lower);
+	printk("mem upper: %uKB\n", (unsigned) mbi->mem_upper);
 }

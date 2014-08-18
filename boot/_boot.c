@@ -133,7 +133,8 @@ boot (unsigned long magic, unsigned long addr)
 				(unsigned) mmap->type);
 	}
 
-	kmain();
+	printk("\n");
+	kmain(mbi);
 }
 
 
