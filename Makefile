@@ -13,8 +13,8 @@ iso: kernel.bin
 	mkdir -p /tmp/tutos
 	mkdir -p /tmp/tutos/boot
 	cp kernel.bin /tmp/tutos/boot/
-	mkdir -p /tmp/tutos/grub
-	cp grub.cfg /tmp/tutos/grub/
+	mkdir -p /tmp/tutos/boot/grub
+	cp grub.cfg /tmp/tutos/boot/grub/
 	grub2-mkrescue -o tutos.iso /tmp/tutos
 	rm -rf /tmp/tutos
 
