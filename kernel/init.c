@@ -28,9 +28,7 @@ void kmain(struct multiboot_info *mbi){
 	printk("mem lower: %uKB\n", (unsigned) mbi->mem_lower);
 	printk("mem upper: %uKB\n", (unsigned) mbi->mem_upper);
 
-	page_directory_entry *pde_table;
-
-	pde_table = mm_initialize(mbi->mem_upper, 700*1024);//for test: using 200MiB of RAM, starting from 
-	printk("PDE address: 0x%x\n",pde_table);
+	mm_initialize(mbi->mem_upper); 
+	printk("PDE address: 0x%x\n",PDE_TABLE_BEGIN);
 
 }

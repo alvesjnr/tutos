@@ -3,7 +3,7 @@ INCLUDE := -I../include
 CFLAGS += -m32 -c
 LDFLAGS += -melf_i386
 
-OBJECTS := kernelio.o 
+OBJECTS := kernelio.o utils.o 
 
 all: lib 
 

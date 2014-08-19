@@ -1,14 +1,14 @@
 #ifndef _MMANAGER_H
 #define _MMANAGER_H
 
+#define PDE_TABLE_SIZE		4*1024
+#define PTE_TABLE_SIZE		4*1024
 
 #define PDE_TABLE_BEGIN		0x00100000
+#define PTE_TABLE_BEGIN		(PDE_TABLE_BEGIN + PDE_TABLE_SIZE)
 #define GENERAL_MEMORY_BEGIN	0x01000000
 
-
-
 typedef unsigned char	byte;
-
 
 typedef unsigned int page_directory_entry;
 typedef unsigned int page_table_entry;
@@ -40,5 +40,13 @@ static inline void toggle_bit(unsigned int *x, int bit){
 
 //                                                  GS0ADWURP
 #define INITIAL_PDE_ENTRY ((page_directory_entry)(0b000010110))
+
+//                                                  G0DACWURP
+#define INITIAL_PTE_ENTRY ((page_directory_entry)(0b000010110))
+
+/* prototypes */
+
+void mm_initialize(unsigned int ram_size);
+
 
 #endif //_MMANAGER_H
