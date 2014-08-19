@@ -30,7 +30,7 @@ void kmain(struct multiboot_info *mbi){
 
 	page_directory_entry *pde_table;
 
-	pde_table = mm_initialize(mbi->mem_upper - mbi->mem_lower, 700*1024);//for test: using 200MiB of RAM, starting from 
-	printk("pde address: 0x%x\n",pde_table);
+	pde_table = mm_initialize(mbi->mem_upper, 700*1024);//for test: using 200MiB of RAM, starting from 
+	printk("PDE address: 0x%x\n",pde_table);
 
 }

@@ -2,6 +2,11 @@
 #define _MMANAGER_H
 
 
+#define PDE_TABLE_BEGIN		0x00100000
+#define GENERAL_MEMORY_BEGIN	0x01000000
+
+
+
 typedef unsigned char	byte;
 
 
@@ -33,5 +38,7 @@ static inline void toggle_bit(unsigned int *x, int bit){
 #define PDE_ACCESSED(pde)	CHECK_FLAG(pde,5)
 #define PDE_PAGE_SIZE(pde)	CHECK_FLAG(pde,7)
 
+//                                                  GS0ADWURP
+#define INITIAL_PDE_ENTRY ((page_directory_entry)(0b000010110))
 
 #endif //_MMANAGER_H

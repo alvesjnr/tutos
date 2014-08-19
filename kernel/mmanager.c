@@ -2,6 +2,14 @@
 #include <kernel.h>
 #include <kernelio.h>
 
+
+/**
+ * RAM map
+ * 0x00100000 -> page directory entry
+ * 0x01000000 -> general use memory
+**/
+
+
 /* ram size given in KiB */
 void *mm_initialize(unsigned int ram_size){
 	unsigned long pde_index;
@@ -13,15 +21,21 @@ void *mm_initialize(unsigned int ram_size){
 	printk("Number of page directory entries: %u\n", pde_entries);
 	printk("Physical Memory: %u MiB\n", ram_size/1024);
 
-	page_directory_entry pde_table[pde_entries];
+	//page_directory_entry pde_table[pde_entries];
+	page_directory_entry *pde_table = PDE_TABLE_BEGIN;
 
 	for(pde_index = 0; pde_index < pde_entries; pde_index++){
-		//cls();
-		//printk("pde: 0x%x\n\n",&(pde_table[pde_index]));
-		//pde_table[pde_index] = 10;
+		
+		if (pde_index * PAGE_SIZE > ram_size)
+			//TODO: as we are not planning virtual memory soon, I will only 
+			//	initialize the amount of tables correspondent to the 
+			//	physical memory total
+			break;
+
+		pde_table[pde_index] = INITIAL_PDE_ENTRY;
 	}
 
-	return pde_entries;
+	return pde_table;
 }
 		
 
