@@ -21,12 +21,6 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA. */
 /* Define entry point */
 extern void kmain();
 
-/* Macros. */
-
-/* Check if the bit BIT in FLAGS is set. */
-#define CHECK_FLAG(flags,bit)   ((flags) & (1 << (bit)))
-
-
 /* Check if MAGIC is valid and print the Multiboot information structure
 pointed by ADDR. */
 void
@@ -47,68 +41,12 @@ boot (unsigned long magic, unsigned long addr)
 	/* Set MBI to the address of the Multiboot information structure. */
 	mbi = (multiboot_info_t *) addr;
 
-	/* Print out the flags. */
-	printk ("flags = 0x%x\n", (unsigned) mbi->flags);
-
-	/* Are mem_* valid? */
-	if (CHECK_FLAG (mbi->flags, 0))
-		printk ("mem_lower = %uKB, mem_upper = %uKB\n",
-			(unsigned) mbi->mem_lower, (unsigned) mbi->mem_upper);
-
-	/* Is boot_device valid? */
-	if (CHECK_FLAG (mbi->flags, 1))
-		printk ("boot_device = 0x%x\n", (unsigned) mbi->boot_device);
-
-	/* Is the command line passed? */
-	if (CHECK_FLAG (mbi->flags, 2))
-		printk ("cmdline = %s\n", (char *) mbi->cmdline);
-
-	/* Are mods_* valid? */
-	if (CHECK_FLAG (mbi->flags, 3))
-	{
-		multiboot_module_t *mod;
-		int i;
-
-		printk ("mods_count = %d, mods_addr = 0x%x\n",
-			(int) mbi->mods_count, (int) mbi->mods_addr);
-		for (i = 0, mod = (multiboot_module_t *) mbi->mods_addr;
-			i < mbi->mods_count;
-			i++, mod++)
-
-			printk (" mod_start = 0x%x, mod_end = 0x%x, cmdline = %s\n",
-		(unsigned) mod->mod_start,
-		(unsigned) mod->mod_end,
-		(char *) mod->cmdline);
- 	}
 
 	/* Bits 4 and 5 are mutually exclusive! */
 	if (CHECK_FLAG (mbi->flags, 4) && CHECK_FLAG (mbi->flags, 5))
 	{
 		printk ("Both bits 4 and 5 are set.\n");
 		return;
-	}
-
-	/* Is the symbol table of a.out valid? */
-	if (CHECK_FLAG (mbi->flags, 4))
-	{
-		multiboot_aout_symbol_table_t *multiboot_aout_sym = &(mbi->u.aout_sym);
-
-		printk ("multiboot_aout_symbol_table: tabsize = 0x%0x, "
-			"strsize = 0x%x, addr = 0x%x\n",
-			(unsigned) multiboot_aout_sym->tabsize,
-			(unsigned) multiboot_aout_sym->strsize,
-			(unsigned) multiboot_aout_sym->addr);
-	}
-
-	/* Is the section header table of ELF valid? */
-	if (CHECK_FLAG (mbi->flags, 5))
-	{
-		multiboot_elf_section_header_table_t *multiboot_elf_sec = &(mbi->u.elf_sec);
-
-		printk ("multiboot_elf_sec: num = %u, size = 0x%x,"
-			" addr = 0x%x, shndx = 0x%x\n",
-			(unsigned) multiboot_elf_sec->num, (unsigned) multiboot_elf_sec->size,
-			(unsigned) multiboot_elf_sec->addr, (unsigned) multiboot_elf_sec->shndx);
 	}
 
 	/* Are mmap_* valid? */

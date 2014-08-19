@@ -3,7 +3,7 @@ INCLUDE:= -I../include -I../lib
 CFLAGS += -m32 -c
 LDFLAGS += -melf_i386
 
-OBJECTS := init.o
+OBJECTS := init.o mmanager.o
 
 
 all: kernel 
