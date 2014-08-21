@@ -29,6 +29,6 @@ void kmain(struct multiboot_info *mbi){
 	printk("mem upper: %uKB\n", (unsigned) mbi->mem_upper);
 
 	mm_initialize(mbi->mem_upper); 
-	printk("PDE address: 0x%x\n",PDE_TABLE_BEGIN);
+	printk("PDE address: 0x%x\n",PTE_TABLE_BEGIN);
 
 }
